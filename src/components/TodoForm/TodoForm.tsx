@@ -44,7 +44,7 @@ export const TodoForm: React.FC<Props> = ({ handleAdd }) => {
     const userId = +event.target.value;
 
     setFormValues({ ...formValues, userId });
-    if (submitErrors.title && userId) {
+    if (submitErrors.userId && userId) {
       setSubmitErrors({ ...submitErrors, userId: false });
     }
   };

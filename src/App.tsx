@@ -11,7 +11,10 @@ export const App = () => {
   const onAdd = (todo: Todo) => {
     const newUser = {
       ...todo,
-      id: Math.max(...todoList.map(currentTodo => +currentTodo.id)) + 1,
+      id:
+        todoList.length > 0
+          ? Math.max(...todoList.map(currentTodo => +currentTodo.id)) + 1
+          : 1,
       user: getUserById(todo.userId),
     };
 
