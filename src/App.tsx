@@ -1,32 +1,28 @@
+import { useState } from 'react';
 import './App.scss';
 import { TodoList } from './components/TodoList';
 import { todos } from './services/todos';
+import { Todo } from './types/Todo';
+import { TodoForm } from './components/TodoForm/TodoForm';
+import { getUserById } from './services/users';
 
 export const App = () => {
+  const [todoList, setTodoList] = useState(todos);
+  const onAdd = (todo: Todo) => {
+    const newUser = {
+      ...todo,
+      id: Math.max(...todos.map(currentTodo => +currentTodo.id)) + 1,
+      user: getUserById(todo.userId),
+    };
+
+    setTodoList([...todoList, newUser]);
+  };
+
   return (
     <div className="App">
       <h1>Add todo form</h1>
-      <form action="/api/todos" method="POST">
-        <div className="field">
-          <input type="text" data-cy="titleInput" />
-          <span className="error">Please enter a title</span>
-        </div>
-
-        <div className="field">
-          <select data-cy="userSelect">
-            <option value="0" disabled>
-              Choose a user
-            </option>
-          </select>
-
-          <span className="error">Please choose a user</span>
-        </div>
-
-        <button type="submit" data-cy="submitButton">
-          Add
-        </button>
-      </form>
-      <TodoList todos={todos} />
+      <TodoForm handleAdd={onAdd} />
+      <TodoList todos={todoList} />
     </div>
   );
 };
