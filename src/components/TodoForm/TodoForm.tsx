@@ -54,6 +54,7 @@ export const TodoForm: React.FC<Props> = ({ handleAdd }) => {
       <div className="field">
         <input
           type="text"
+          placeholder="Enter a title"
           data-cy="titleInput"
           value={formValues.title}
           onChange={handleTitleChange}
